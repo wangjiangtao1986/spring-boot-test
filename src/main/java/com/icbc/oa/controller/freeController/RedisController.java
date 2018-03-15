@@ -1,5 +1,7 @@
 package com.icbc.oa.controller.freeController;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +21,18 @@ public class RedisController {
 	
 	@Autowired
 	RedisService redisService;
+	
+
+    @GetMapping("/index")
+    public String index(HttpSession httpSession) {
+        httpSession.setAttribute("user", "helloword");
+        return httpSession.getId();
+    }
+
+    @GetMapping("/helloword")
+    public String hello(HttpSession httpSession) {
+        return httpSession.getId() + httpSession.getAttribute("user");
+    }
 	
 	@PutMapping("/createSession")
 	public JSONObject createSession(ICBCSession icbcSession) throws Exception {
